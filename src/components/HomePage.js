@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import BlogCard from '@/components/BlogCard';
+import Footer from '@/components/Footer';
 
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
@@ -64,7 +65,7 @@ export default function HomePage() {
                 Share your thoughts, ideas, and stories with the world. Connect with like-minded people and discover amazing content.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="bg-white/20 backdrop-blur-sm text-white px-8 py-3 rounded-xl font-semibold hover:bg-white/30 transition-all duration-200 transform hover:scale-105 border border-white/30">
+                <button className="bg-white/20 backdrop-blur-sm text-white px-8 py-3 rounded-xl font-semibold hover:bg:white/30 transition-all duration-200 transform hover:scale-105 border border-white/30">
                   Start Reading
                 </button>
                 <button className="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-3 rounded-xl font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-200 transform hover:scale-105">
@@ -148,6 +149,8 @@ export default function HomePage() {
           )}
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 }
