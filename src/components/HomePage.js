@@ -64,13 +64,10 @@ export default function HomePage() {
               <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto">
                 Share your thoughts, ideas, and stories with the world. Connect with like-minded people and discover amazing content.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="bg-white/20 backdrop-blur-sm text-white px-8 py-3 rounded-xl font-semibold hover:bg:white/30 transition-all duration-200 transform hover:scale-105 border border-white/30">
+              <div className="flex justify-center">
+                <a href="#posts" className="bg-white/20 backdrop-blur-sm text-white px-8 py-3 rounded-xl font-semibold hover:bg-white/30 transition-all duration-200 transform hover:scale-105 border border-white/30">
                   Start Reading
-                </button>
-                <button className="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-3 rounded-xl font-semibold hover:from-pink-600 hover:to-purple-600 transition-all duration-200 transform hover:scale-105">
-                  Join Community
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -82,9 +79,9 @@ export default function HomePage() {
         </div>
 
         {/* Category Filter */}
-        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div id="posts" className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">Explore Categories</h2>
+            <h2 className="text-3xl font-bold text-gray-800 mb-4">All Posts</h2>
             <p className="text-gray-600">Discover content that interests you</p>
           </div>
           
