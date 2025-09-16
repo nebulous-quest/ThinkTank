@@ -2,7 +2,7 @@ import Navbar from '@/components/Navbar';
 import { headers } from 'next/headers';
 
 async function fetchPost(id) {
-  const h = headers();
+  const h = await headers();
   const host = h.get('x-forwarded-host') || h.get('host');
   const protocol = h.get('x-forwarded-proto') || 'http';
   const base = `${protocol}://${host}`;
@@ -15,8 +15,8 @@ async function fetchPost(id) {
 }
 
 export async function generateMetadata({ params }) {
-  const { id } = await params;
-  const post = await fetchPost(id);
+  const p = await params;
+  const post = await fetchPost(p.id);
   if (!post) {
     return { title: 'Post not found - ThinkTank' };
   }
@@ -24,8 +24,8 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function PostPage({ params }) {
-  const { id } = await params;
-  const post = await fetchPost(id);
+  const p = await params;
+  const post = await fetchPost(p.id);
 
   if (!post) {
     return (
@@ -44,7 +44,9 @@ export default async function PostPage({ params }) {
       <article className="max-w-3xl mx-auto px-4 py-10">
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 overflow-hidden">
           {post.featured_image && (
-            <img src={post.featured_image} alt={post.title} className="w-full h-80 object-cover" />
+            <div className="aspect-video w-full">
+              <img src={post.featured_image} alt={post.title} className="w-full h-full object-cover" />
+            </div>
           )}
           <div className="p-8">
             <div className="flex items-center justify-between mb-4">

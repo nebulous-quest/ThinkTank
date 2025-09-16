@@ -15,13 +15,15 @@ export default function BlogCard({ post }) {
   return (
     <article className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-white/20 group">
       {post.featured_image && (
-        <div className="relative overflow-hidden">
-          <img
-            src={post.featured_image}
-            alt={post.title}
-            className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+        <div className="relative">
+          <div className="aspect-video w-full">
+            <img
+              src={post.featured_image}
+              alt={post.title}
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none"></div>
         </div>
       )}
       

@@ -42,9 +42,15 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Title, content, and author are required' }, { status: 400 });
     }
 
+    // Normalize local image paths (served from public/)
+    let normalizedImage = featured_image;
+    if (normalizedImage && !/^https?:\/\//i.test(normalizedImage)) {
+      normalizedImage = normalizedImage.startsWith('/') ? normalizedImage : `/${normalizedImage}`;
+    }
+
     const result = await pool.query(
       'INSERT INTO blog_posts (title, content, author_id, category_id, featured_image) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [title, content, author_id, category_id, featured_image]
+      [title, content, author_id, category_id, normalizedImage]
     );
 
     return NextResponse.json({ post: result.rows[0] }, { status: 201 });

@@ -16,6 +16,7 @@ export default function DashboardPage() {
     category_id: '',
     featured_image: ''
   });
+  const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -58,6 +59,25 @@ export default function DashboardPage() {
       ...formData,
       [e.target.name]: e.target.value
     });
+  };
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    try {
+      setUploading(true);
+      const body = new FormData();
+      body.append('file', file);
+      const res = await fetch('/api/upload', { method: 'POST', body });
+      const data = await res.json();
+      if (res.ok) {
+        setFormData(prev => ({ ...prev, featured_image: data.url }));
+      }
+    } catch (err) {
+      console.error('Upload failed', err);
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -206,15 +226,17 @@ export default function DashboardPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">Featured Image URL</label>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">Featured Image</label>
                   <input
-                    type="url"
-                    name="featured_image"
-                    className="w-full px-4 py-3 bg-white/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all duration-200"
-                    placeholder="https://example.com/image.jpg"
-                    value={formData.featured_image}
-                    onChange={handleChange}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-purple-500 file:to-pink-500 file:text-white hover:file:from-purple-600 hover:file:to-pink-600"
                   />
+                  {uploading && <p className="text-sm text-gray-500 mt-2">Uploading...</p>}
+                  {formData.featured_image && (
+                    <p className="text-sm text-gray-600 mt-2">Uploaded: {formData.featured_image}</p>
+                  )}
                 </div>
               </div>
 
