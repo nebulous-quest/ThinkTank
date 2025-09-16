@@ -10,6 +10,14 @@ export async function POST(request) {
       return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json({ error: 'Please enter a valid email address' }, { status: 400 });
+    }
+    if (password.length < 5) {
+      return NextResponse.json({ error: 'Password must be at least 5 characters' }, { status: 400 });
+    }
+
     // Check if user already exists
     const existingUser = await pool.query(
       'SELECT * FROM users WHERE email = $1 OR username = $2',

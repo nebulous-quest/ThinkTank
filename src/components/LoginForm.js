@@ -41,7 +41,7 @@ export default function LoginForm() {
         localStorage.setItem('user', JSON.stringify(data.user));
         router.push('/dashboard');
       } else {
-        setError(data.error);
+        setError(data.error || 'Invalid credentials');
       }
     } catch (error) {
       setError('An error occurred. Please try again.');
@@ -84,9 +84,12 @@ export default function LoginForm() {
                 />
               </div>
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-white mb-2">
-                  Password
-                </label>
+                <div className="flex items-center justify-between mb-2">
+                  <label htmlFor="password" className="block text-sm font-medium text-white">
+                    Password
+                  </label>
+                  <Link href="/forgot-password" className="text-xs text-white/80 hover:text-white">Forgot password?</Link>
+                </div>
                 <input
                   id="password"
                   name="password"
@@ -102,7 +105,7 @@ export default function LoginForm() {
 
             {error && (
               <div className="bg-red-500/20 border border-red-500/30 text-red-100 px-4 py-3 rounded-xl text-sm">
-                {error}
+                {error} <span className="ml-2"><Link href="/forgot-password" className="underline">Forgot password?</Link></span>
               </div>
             )}
 

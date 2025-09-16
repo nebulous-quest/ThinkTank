@@ -27,6 +27,17 @@ export default function RegisterForm() {
     setLoading(true);
     setError('');
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setError('Please enter a valid email address.');
+      setLoading(false);
+      return;
+    }
+    if (formData.password.length < 5) {
+      setError('Password must be at least 5 characters.');
+      setLoading(false);
+      return;
+    }
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       setLoading(false);
@@ -76,7 +87,7 @@ export default function RegisterForm() {
             </p>
           </div>
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6" onSubmit={handleSubmit} noValidate>
             <div className="space-y-4">
               <div>
                 <label htmlFor="username" className="block text-sm font-medium text-white mb-2">
@@ -117,8 +128,9 @@ export default function RegisterForm() {
                   name="password"
                   type="password"
                   required
+                  minLength={5}
                   className="w-full px-4 py-3 bg-white/20 border border-white/30 rounded-xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all duration-200"
-                  placeholder="Create a password"
+                  placeholder="Create a password (min 5 characters)"
                   value={formData.password}
                   onChange={handleChange}
                 />
