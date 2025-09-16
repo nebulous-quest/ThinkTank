@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import BlogCard from '@/components/BlogCard';
-import Footer from '@/components/Footer';
 
 export default function HomePage() {
   const [posts, setPosts] = useState([]);
@@ -146,8 +145,6 @@ export default function HomePage() {
           )}
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }
